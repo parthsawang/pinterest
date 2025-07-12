@@ -6,30 +6,308 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pinterest Login</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #fff;
+      min-height: 500vh;
+      background-color: #100d0d;
+      overflow-y: auto;
+    }
+
+    .navbar {
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      padding: 0 20px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+
+    .main-content {
+      display: flex;
+      flex: 1;
+      width: 100%;
+      height: 100vh;
+      margin-top: 60px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 50px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .nav-explore a {
+      color: #000;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 140px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-links li a {
+      text-decoration: none;
+      color: #000;
+      font-weight: 500;
+    }
+
+    .nav-links li a:hover {
+      color: #e60023;
+    }
+
+    .bg-img {
+      background-image: url("bg2-img.png");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -2;
+      margin-top: 50px;
+    }
+
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.4);
+      z-index: -1;
+    }
+
+    .left-side {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+    }
+
+    .left-side h1 {
+      font-size: 56px;
+      max-width: 500px;
+      margin-left: 40px;
+    }
+
+    .right-side {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 400px;
+      padding: 16px;
+      border-radius: 20px;
+      background-color: rgb(20, 19, 19);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(5px);
+    }
+
+    .welcome-text {
+      text-align: center;
+      font-size: 28px;
+      color: white;
+      margin-bottom: 12px;
+    }
+
+    .sub-text {
+      text-align: center;
+      font-size: 16px;
+      color: #e6dada;
+      margin-bottom: 32px;
+    }
+
+    .input-field {
+      width: 100%;
+      height: 48px;
+      padding: 0 16px;
+      border: 2px solid #cdcdcd;
+      border-radius: 16px;
+      font-size: 16px;
+      background-color: black;
+      color: #d9c9c9;
+      outline: none;
+      margin-bottom: 10px;
+    }
+
+    .input-field:focus {
+      border-color: #0073e6;
+    }
+
+    .continue-btn {
+      width: 100%;
+      height: 48px;
+      background-color: #e60023;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .continue-btn:hover {
+      background-color: #d50621;
+    }
+
+    .divider-container {
+      display: flex;
+      align-items: center;
+      margin: 16px 0;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background-color: #efefef;
+    }
+
+    .divider-text {
+      padding: 0 16px;
+      color: #767676;
+      font-size: 14px;
+    }
+
+    .social-btn {
+      width: 100%;
+      height: 48px;
+      background-color: #1877f2;
+      color: #fff;
+      border: none;
+      border-radius: 24px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .social-btn.google-btn {
+      background-color: #fff;
+      color: #333;
+      border: 2px solid #dadce0;
+    }
+
+    .terms-text {
+      text-align: center;
+      font-size: 12px;
+      color: #f8eeee;
+      margin-top: 16px;
+    }
+
+    .signup-link {
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid #efefef;
+    }
+
+    .signup-link a {
+      color: #f7eeee;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* New Page 2 Section */
+    .page2 {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      min-height: 100vh;
+      background-color: #fff59d;
+      padding: 40px;
+      box-sizing: border-box;
+    }
+
+    .page2-left,
+    .page2-right {
+      flex: 1;
+      padding: 20px;
+      color: #333;
+    }
+
+    .page2-left {
+      border-right: 2px solid #e0c400;
+    }
+
+    .page2 h2 {
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #880e4f;
+    }
+
+    .page2 p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .main-content {
+        flex-direction: column;
+      }
+
+      .page2 {
+        flex-direction: column;
+      }
+
+      .page2-left {
+        border-right: none;
+        border-bottom: 2px solid #e0c400;
+      }
+    }
+  </style>
 </head>
 
 <body>
   <nav class="navbar">
-    <div class="logo" style="background-image: url('Pinterest-logo.png');
-  height: 50px; width: 100px; background-size: cover;">
-      <div class="nav-explore">
-        <a href="#">Explore</a>
-      </div>
-    </div>
+    <div class="logo" style="background-image: url('Pinterest-logo.png');"></div>
     <ul class="nav-links">
       <li><a href="#">About Us</a></li>
       <li><a href="#">Businesses</a></li>
       <li><a href="#">Home</a></li>
       <li><a href="#">Contact</a></li>
-      <button class="sign-up"
-        style="  background-color: #e60023; color: #fff; border: none; padding: 10px 20px; border-radius: 40px;cursor: pointer; font-weight: bold; height: 40px; width: 100px;">Sign
+      <button
+        style="background-color: #e60023; color: #fff; border: none; padding: 10px 20px; border-radius: 40px;">Sign
         Up</button>
-      <button class="log-in"
-        style="background-color: #100f0f; color: #fff; border: none; padding: 10px 20px; border-radius: 40px;cursor: pointer; font-weight: bold; height: 40px; width: 100px;">Log
+      <button style="background-color: #100f0f; color: #fff; border: none; padding: 10px 20px; border-radius: 40px;">Log
         In</button>
     </ul>
   </nav>
-
 
   <div class="bg-img"></div>
   <div class="bg-overlay"></div>
@@ -41,22 +319,12 @@
 
     <div class="right-side">
       <div class="container">
-        <div class="logo-container">
-          <svg class="logo" height="40" width="40" viewBox="0 0 24 24" fill="#e60023">
-            <path
-              d="M0 12c0 5.123 3.211 9.497 7.73 11.218-.11-.937-.227-2.482.025-3.566.217-.932 1.401-5.938 1.401-5.938s-.357-.715-.357-1.774c0-1.66.962-2.9 2.161-2.9 1.02 0 1.512.765 1.512 1.682 0 1.025-.653 2.557-.99 3.978-.281 1.189.597 2.159 1.769 2.159 2.123 0 3.756-2.239 3.756-5.471 0-2.861-2.056-4.86-4.991-4.86-3.398 0-5.393 2.549-5.393 5.184 0 1.027.395 2.127.889 2.726a.36.36 0 0 1 .083.343c-.091.378-.293 1.189-.332 1.355-.053.218-.173.265-.4.159-1.499-.698-2.436-2.888-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.357-.631-2.750-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12.017 24c6.624 0 11.99-5.367 11.99-12C24 5.367 18.641.001 12.017.001 5.376.001.001 5.367.001 12">
-            </path>
-          </svg>
-        </div>
-
         <h1 class="welcome-text">Welcome to Pinterest</h1>
         <p class="sub-text">Find new ideas to try</p>
 
-        <div class="form-container">
-          <input type="email" class="input-field" placeholder="Email" required>
-          <input type="password" class="input-field" placeholder="Password" required>
-          <button class="continue-btn">Log in</button>
-        </div>
+        <input type="email" class="input-field" placeholder="Email" required>
+        <input type="password" class="input-field" placeholder="Password" required>
+        <button class="continue-btn">Log in</button>
 
         <div class="divider-container">
           <div class="divider-line"></div>
@@ -64,29 +332,8 @@
           <div class="divider-line"></div>
         </div>
 
-        <button class="social-btn">
-          <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-            <path
-              d="M24 12.073c0-6.627-5.373-12-12-12S0 5.446 0 12.073c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953h-1.514c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.063 24 12.073z">
-            </path>
-          </svg>
-          Continue with Facebook
-        </button>
-
-        <button class="social-btn google-btn">
-          <svg class="social-icon" viewBox="0 0 24 24" width="20" height="20">
-            <path fill="#4285F4"
-              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-            <path fill="#34A853"
-              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-            <path fill="#FBBC05"
-              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22z" />
-            <path fill="#EA4335"
-              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84C7.71 7.31 10.14 5.38 12 5.38z" />
-          </svg>
-          Continue with Google
-        </button>
-
+        <button class="social-btn">Continue with Facebook</button>
+        <button class="social-btn google-btn">Continue with Google</button>
 
         <p class="terms-text">
           By continuing, you agree to Pinterest's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
@@ -98,15 +345,57 @@
       </div>
     </div>
   </div>
-  </div>
 
-  <main>
+  <!-- New Page 2 Section -->
+  <div class="page2">
+    <div class="page2-right" style="padding-top: 50px; width: 50%; display: flex;">
+      <div class="page-contain" style="height: 50%; width: 50%; ">
+        <div style="font-size: 60px; color: rgb(195, 25, 82); font-weight: bold; margin-top: 120px; margin-left: 0px;">
+          Search for an idea</div>
+        <div style="font-size: 24px; color: rgb(195, 25, 82); margin-left: 35px ;max-width: 400px; margin-top: 20px; ">
+          What do you want to try next? Think of something you’re into—like “easy chicken dinner”—and see what you find.
+        </div>
+        <div class="explore-btn" style="display: flex; align-items: center;">
+          <a href="/ideas/food-and-drink/918530398158/" rel=" tabindex=0"></a>
+          <button
+            style="background-color: #e60023; color: #fff; border: none; padding: 10px 20px; border-radius: 20px; font-size: 18px; font-weight: bold; margin-top: 20px; margin-left: 140px; min-height: 48px; cursor: pointer;">Explore</button>
+        </div>
+      </div>
 
+      <div class="page2-right"
+        style="position: relative; height: 100%; max-width: 100%; display: flex; align-items: center;">
+        <!-- Image 1 - Top Right -->
+        <div style="position: absolute; top: 0px; right: 140px; width: 178px; height: 218px;">
+          <img src="https://s.pinimg.com/webapp/topRight-6902088a.png" alt="Orange chicken recipe"
+            style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+        </div>
 
-  </main>
+        <!-- Image 2 - Bottom Left -->
+        <div style="position: absolute; top: 150px; left: 0px; width: 204px; height: 285px;">
+          <img src="https://s.pinimg.com/webapp/left-ccce7532.png" alt="Multiple chicken recipes"
+            style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+        </div>
 
+        <!-- Image 3 - Right Side -->
+        <div style="position: absolute; right: 133px; bottom: 0px; width: 164px; height: 258px;">
+          <img src="https://s.pinimg.com/webapp/right-2bd1edfc.png" alt="Chicken rice recipe"
+            style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+        </div>
+
+        <!-- Image 4 - Center -->
+        <div style="position: absolute; top: 88px; left: 148px; width: 298px; height: 456px;">
+          <img src="https://s.pinimg.com/webapp/center-2d76a691.png" alt="Crispy chicken recipe"
+            style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;">
+        </div>
+        <!-- Search Tag Overlay -->
+        <div
+          style="position: absolute; top: 231px; left: 103px; height: 100px; width: 316px; background-color: rgba(255, 255, 255, 0.9); border-radius: 16px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+          <svg aria-label="search" height="24" width="24" viewBox="0 0 24 24">
+            <path d="M17.33 18.74a10 10 0 1 1 1.41-1.41l4.47 4.47-1.41 1.41zM11 3a8 8 0 1 0 0 16 8 8 0 0 0 0-16"></path>
+          </svg>
+          <span style="font-size: 20px; font-weight: bold; color: #6e0f3c;">easy chicken dinner</span>
+        </div>
 
 
 </body>
-
-</html>
+<html>
